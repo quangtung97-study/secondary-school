@@ -13,12 +13,17 @@ create table User (
     userId integer primary key autoincrement,
     userName varchar(100) not null,
     -------------------------------------------
-    userPassword char(31) not null, -- using bcrypt radix-64 31 chars, version $2b$
-    userPasswordSalt char(22) not null, -- using bcrypt radix-64 22 chars salt 
+    userPasswordHash char(60) not null, -- using bcrypt 60 chars, python bcrypt
+    userPasswordSalt char(29) not null, -- using bcrypt 29 chars salt 
     -------------------------------------------
     privilegeId integer not null,
     foreign key (privilegeId) references Privilege(privilegeId)
 );
+
+insert into User (userName, userPasswordHash, userPasswordSalt, privilegeId)
+    values ("admin", 
+        "$2b$12$rWuHFkxmKZkLE1lfBLsWnOEhLXdh7gxLh4K50fkBnpsbY65JUdzOe", 
+        "$2b$12$rWuHFkxmKZkLE1lfBLsWnO", 1);
 
 drop table if exists NeNep;
 create table NeNep (

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Đăng nhập{% endblock %}
+
+{% block navbar %}
+<li class="nav-item {{activate.login}}">
+  <a class="nav-link" href="">
+    Đăng nhập
+  </a>
+</li>
+{% endblock %}
+
+{% load static %}
+
+{% block external_css %} 
+<link href="{% static "login/login.css" %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="login-form">
+<div class="main-div">
+  <div class="panel">
+    <h2>Đăng nhập</h2>
+    <p>Nhập tài khoản và mật khẩu</p>
+  </div>
+  <form id="Login" action="/login/post" method="post"> {% csrf_token %}
+    <div class="form-group">
+      <input type="text" class="form-control" name="username"
+        id="inputEmail" placeholder="Tên tài khoản">
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" name="password"
+        id="inputPassword" placeholder="Mật khẩu">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+  </form>
+  </div>
+</div></div></div>
+{% endblock %}
