@@ -1,0 +1,54 @@
+{% extends 'base_logged_in.html' %}
+
+{% block title %}Thông tin tài khoản{% endblock %}
+
+{% block navbar_left %}
+<li class="nav-item active">
+  <a class="nav-link" href="/account/detail/">
+    Tài khoản
+  </a>
+</li>
+{% endblock %}
+
+{% load static %}
+
+{% block external_css %} 
+<link href="{% static "account/detail.css" %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="detail-form">
+<div class="main-div">
+  <div class="panel">
+    <h2>Tài khoản: {{ username }}</h2>
+  </div>
+</div></div></div>
+
+<div class="container">
+<div class="detail-form">
+<div class="main-div">
+  <div class="panel">
+    <p>Thay đổi mật khẩu</p>
+  </div>
+  <form action="/account/change-password/" method="post"> {% csrf_token %}
+    <div class="form-group">
+      <input type="password" class="form-control" 
+        name="old-password" placeholder="Mật khẩu cũ">
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" 
+        name="new-password" placeholder="Mật khẩu mới">
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" 
+        name="re-enter-new-password" placeholder="Nhập lại mật khẩu mới">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thay đổi mật khẩu</button>
+  </form>
+  </div>
+</div></div></div>
+{% endblock %}

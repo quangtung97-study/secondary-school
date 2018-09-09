@@ -11,19 +11,16 @@ insert into Privilege (privilegeName) values ("loptruong");
 drop table if exists User;
 create table User (
     userId integer primary key autoincrement,
-    userName varchar(100) not null,
+    username varchar(100) not null,
     -------------------------------------------
     userPasswordHash char(60) not null, -- using bcrypt 60 chars, python bcrypt
-    userPasswordSalt char(29) not null, -- using bcrypt 29 chars salt 
     -------------------------------------------
     privilegeId integer not null,
     foreign key (privilegeId) references Privilege(privilegeId)
 );
 
-insert into User (userName, userPasswordHash, userPasswordSalt, privilegeId)
-    values ("admin", 
-        "$2b$12$rWuHFkxmKZkLE1lfBLsWnOEhLXdh7gxLh4K50fkBnpsbY65JUdzOe", 
-        "$2b$12$rWuHFkxmKZkLE1lfBLsWnO", 1);
+insert into User (username, userPasswordHash, privilegeId)
+    values ("admin", "$2b$12$rWuHFkxmKZkLE1lfBLsWnOEhLXdh7gxLh4K50fkBnpsbY65JUdzOe", 1);
 
 drop table if exists NeNep;
 create table NeNep (

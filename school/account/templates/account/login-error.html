@@ -2,9 +2,9 @@
 
 {% block title %}Lỗi đăng nhập{% endblock %}
 
-{% block navbar %}
-<li class="nav-item {{activate.login}}">
-  <a class="nav-link" href="/login">
+{% block navbar_right %}
+<li class="nav-item">
+  <a class="btn btn-primary" href="/account/login/">
     Đăng nhập
   </a>
 </li>
@@ -13,7 +13,7 @@
 {% load static %}
 
 {% block external_css %} 
-<link href="{% static "login/login.css" %}" rel="stylesheet"/>
+<link href="{% static "account/login.css" %}" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}

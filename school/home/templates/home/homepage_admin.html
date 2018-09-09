@@ -1,8 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'base_logged_in.html' %}
 
 {% block title %}Trang chủ{% endblock %}
 
-{% block navbar %}
+{% block navbar_right %}
+    {{ block.super }}
 {% endblock %}
 
 {% load static %}

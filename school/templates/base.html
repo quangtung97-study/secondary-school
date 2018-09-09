@@ -12,17 +12,20 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="/">
     <img src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
     THPT Tam Nông
   </a>
 
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item {{activate.homepage}}">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {{homepage}}">
         <a class="nav-link" href="/">Trang chủ </a>
       </li>
-      {% block navbar %}{% endblock %}
+      {% block navbar_left %}{% endblock %}
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% block navbar_right %}{% endblock %}
     </ul>
   </div>
 </nav>

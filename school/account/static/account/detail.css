@@ -1,16 +1,16 @@
 body { 
-    background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); 
+    background-color: gray;
     background-repeat: no-repeat; 
     background-position: center; 
     background-size: cover; 
 }
 
 
-div.container { margin-top: 50px; }
+div.container { margin-top: 10pt; }
 .form-heading { color:#fff; font-size:23px;}
-.panel h2{ color:#444444; font-size:48px; margin:0 0 8px 0;}
-.panel p { color:#777777; font-size:18px; margin-bottom:30px; line-height:24px;}
-.login-form .form-control {
+.panel h2{ color:#444444; font-size:28px; margin:0 0 8px 0;}
+.panel p { color:#777777; font-size:20px; margin-bottom:30px; line-height:24px;}
+.detail-form .form-control {
   background: #f7f7f7 none repeat scroll 0 0;
   border: 1px solid #d4d4d4;
   border-radius: 4px;
@@ -23,16 +23,16 @@ div.container { margin-top: 50px; }
 .main-div {
   background: #ffffff none repeat scroll 0 0;
   border-radius: 2px;
-  margin: 10px auto 30px;
-  max-width: 450px;
-  padding: 50px 70px 70px 71px;
+  margin: 10px auto 10px;
+  max-width: 400pt;
+  padding: 20px 70px 20px 70px;
 }
 
-.login-form .form-group {
+.detail-form .form-group {
   margin-bottom:10px;
 }
-.login-form{ text-align:center;}
-.login-form  .btn.btn-primary {
+.detail-form{ text-align:center;}
+.detail-form  .btn.btn-primary {
   background: #f0ad4e none repeat scroll 0 0;
   border-color: #f0ad4e;
   color: #ffffff;
@@ -49,3 +49,13 @@ div.container { margin-top: 50px; }
 }
 .back { text-align: left; margin-top:10px;}
 .back a {color: #444444; font-size: 13px;text-decoration: none;}
+.radio { font-size: 20; text-align: left; }
+.checkbox { 
+  font-size: 24; 
+  text-align: left; 
+  margin: 10px; 
+  padding: 8px;
+  border: 2px; 
+  border-style: solid;
+  border-color: gray; 
+}
