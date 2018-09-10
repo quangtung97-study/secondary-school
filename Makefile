@@ -7,3 +7,6 @@ test:
 
 static:
 	bash bin/collectstatic.sh
+
+database:
+	mysql -u school_django -pschool-project < school/school.sql

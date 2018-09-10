@@ -1,22 +1,44 @@
-from django.db import connection
-from school import read_models as models
+from django.db import connections
+from django.db import transaction
+from school import read_models, write_models
 
 
 # null if not have
 def get_user_by_name(name):
-    with connection.cursor() as cursor:
+    with connections['main'].cursor() as cursor:
         cursor.execute("SELECT username, "
                        "userPasswordHash, privilegeName "
                        "from User "
-                       "inner join Privilege using (privilegeId) "
+                       "inner join Privilege using (privilegeName) "
                        "where username=%s", (name,))
         row = cursor.fetchone()
         if row is None:
             return None
 
-        return models.new_user(
+        return read_models.new_user(
             username=row[0],
             user_password_hash=row[1],
             privilege_name=row[2],
         )
     return None
+
+
+# return False if fail, True if success
+@transaction.atomic
+def update_password(username, old_password,
+                    new_password, re_enter_new_password):
+    old_user = get_user_by_name(username)
+    new_user = write_models.get_new_user_after_change_password(
+        old_user=old_user,
+        old_password=old_password,
+        new_password=new_password,
+        re_enter_new_password=re_enter_new_password
+    )
+    if new_user is None:
+        return False
+
+    with connections['main'].cursor() as cursor:
+        cursor.execute("update User set userPasswordHash = %s "
+                       "where username = %s",
+                       (new_user['userPasswordHash'], new_user['username']))
+    return True
