@@ -36,7 +36,10 @@ def logout(request):
 
 
 def detail(request):
-    d = {'username': view_utils.get_username(request)}
+    d = {
+        'username': view_utils.get_username(request),
+        'privilege': view_utils.get_user_privilege_string(request),
+    }
     privilege = view_utils.get_user_privilege(request)
     if privilege is None:
         return redirect('/')
@@ -58,5 +61,22 @@ def change_password(request):
     )
     if ret is False:
         return render(request, 'account/change-password-error.html')
+
+    return redirect('/account/detail/')
+
+
+@csrf_protect
+def add_account(request):
+    query = QueryDict(request.body)
+
+    ret = repository.add_account(
+        username=query['username'],
+        password=query['password'],
+        re_enter_password=query['re-enter-password'],
+        privilege_name=query['privilege-name']
+    )
+
+    if ret is False:
+        return render(request, 'account/add-account-error.html')
 
     return redirect('/account/detail/')

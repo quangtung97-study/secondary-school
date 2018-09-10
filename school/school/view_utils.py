@@ -1,5 +1,13 @@
+from school import read_models
+
+
 def get_user_privilege(request):
     return request.session.get('privilegeName', default=None)
+
+
+def get_user_privilege_string(request):
+    privilege_name = request.session.get('privilegeName', default=None)
+    return read_models.privilege_name_to_string(privilege_name)
 
 
 def get_username(request):

@@ -42,3 +42,26 @@ def update_password(username, old_password,
                        "where username = %s",
                        (new_user['userPasswordHash'], new_user['username']))
     return True
+
+
+# return False if fail, True if success
+def add_account(username, password,
+                re_enter_password, privilege_name):
+    new_user = write_models.new_user_for_adding(
+        username=username,
+        password=password,
+        re_enter_password=re_enter_password,
+        privilege_name=privilege_name
+    )
+    if new_user is None:
+        return False
+
+    with connections['main'].cursor() as cursor:
+        cursor.execute("insert into User("
+                       "username, userPasswordHash, privilegeName) "
+                       "values (%s, %s, %s)",
+                       (new_user['username'],
+                        new_user['userPasswordHash'],
+                        new_user['privilegeName']))
+
+    return True

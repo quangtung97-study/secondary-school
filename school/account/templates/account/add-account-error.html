@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Lỗi thêm tài khoản{% endblock %}
+
+{% block navbar_right %}
+<li class="nav-item">
+  <a class="btn btn-primary" href="/account/detail/">
+    Tài khoản
+  </a>
+</li>
+{% endblock %}
+
+{% load static %}
+
+{% block external_css %} 
+<link href="{% static "account/login.css" %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center" style="margin-top: 80px; color: blue;">Đã có lỗi trong quá trình thêm tài khoản</h1>
+{% endblock %}

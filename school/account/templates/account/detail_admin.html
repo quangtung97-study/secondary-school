@@ -13,20 +13,25 @@
 
   <form action="/account/add-account/" method="post"> {% csrf_token %}
     <div class="form-group radio">
-      <label><input type="radio" name="optradio" value="saodo" checked>Sao đỏ</label>
+      <label><input type="radio" name="privilege-name" value="saodo" checked>Sao đỏ</label>
     </div>
     <div class="form-group radio">
-      <label><input type="radio" name="optradio" value="loptruong">Lớp trưởng</label>
+      <label><input type="radio" name="privilege-name" value="loptruong">Lớp trưởng</label>
     </div>
 
     <div class="form-group">
       <input type="text" class="form-control" 
-        name="old-password" placeholder="Tên tài khoản">
+        name="username" placeholder="Tên tài khoản">
     </div>
 
     <div class="form-group">
       <input type="password" class="form-control" 
-        name="new-password" placeholder="Mật khẩu">
+        name="password" placeholder="Mật khẩu">
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" 
+        name="re-enter-password" placeholder="Nhập lại mật khẩu">
     </div>
 
     <button type="submit" class="btn btn-primary">Thêm tài khoản</button>

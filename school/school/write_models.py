@@ -3,7 +3,13 @@ import bcrypt
 
 
 def new_user(username, password, privilege_name):
+    if username is None or password is None or privilege_name is None:
+        return None
+
     if len(username) > 50:
+        return None
+
+    if len(password) < 4:
         return None
 
     if privilege_name not in ['admin', 'saodo', 'loptruong']:
@@ -49,3 +55,15 @@ def get_new_user_after_change_password(
         password=new_password,
         privilege_name=old_user['privilegeName']
     )
+
+
+def new_user_for_adding(username, password,
+                        re_enter_password, privilege_name):
+    if password != re_enter_password:
+        return None
+    user = new_user(username, password, privilege_name)
+    if user is None:
+        return None
+    if user['privilegeName'] == 'admin':
+        return None
+    return user
