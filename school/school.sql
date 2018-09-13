@@ -26,9 +26,22 @@ create table User (
 insert into User (username, userPasswordHash, privilegeName)
     values ("admin", "$2b$12$rWuHFkxmKZkLE1lfBLsWnOEhLXdh7gxLh4K50fkBnpsbY65JUdzOe", "admin");
 
+drop table if exists Class;
+create table Class (
+    className varchar(5) not null,
+    primary key (className)
+);
+
+
+create table Monitoring (
+    lopTruong varchar(50) not null,
+    className varchar(5) not null,
+);
+
 drop table if exists NeNep;
 create table NeNep (
-    ngay date not null,
+    ngay char(10) not null,
+    className varchar(5) not null
     saoDo varchar(50) not null,
 
     siSo int not null, 
@@ -43,7 +56,8 @@ create table NeNep (
     nghiThucDoi int not null,
     ghiChu varchar(100) not null,
 
-    primary key (day),
+    primary key (day, className),
+    foreign key (className) references Class (className),
     foreign key (saoDo) references User (username)
 );
 
