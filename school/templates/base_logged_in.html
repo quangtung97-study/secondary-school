@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 
+{% block navbar_left %}
+
+{% if loptruong_privilege %}
+<li class="nav-item {{loptruong_active}}">
+  <a class="nav-link" href="/hoctap/">Học tập</a>
+</li>
+{% endif %}
+
+{% if saodo_privilege %}
+<li class="nav-item {{saodo_active}}">
+  <a class="nav-link" href="/saodo/">Sao đỏ</a>
+</li>
+{% endif %}
+
+{% endblock %}
+
 {% block navbar_right %}
 <li class="nav-item">
   <a class="btn btn-info" href="/account/detail">

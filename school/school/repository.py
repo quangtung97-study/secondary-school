@@ -45,8 +45,8 @@ def update_password(username, old_password,
 
 
 # return False if fail, True if success
-def add_account(username, password,
-                re_enter_password, privilege_name):
+def add_user(username, password,
+             re_enter_password, privilege_name):
     new_user = write_models.new_user_for_adding(
         username=username,
         password=password,
@@ -63,5 +63,26 @@ def add_account(username, password,
                        (new_user['username'],
                         new_user['userPasswordHash'],
                         new_user['privilegeName']))
-
     return True
+
+
+def get_users_except_admin():
+    users = []
+    with connections['main'].cursor() as cursor:
+        cursor.execute("select username, userPasswordHash, privilegeName "
+                       "from User where username != 'admin'")
+        for row in cursor:
+            user = read_models.new_user(
+                username=row[0],
+                user_password_hash=row[1],
+                privilege_name=row[2],
+            )
+            users.append(user)
+    return users
+
+
+def remove_users(usernames):
+    with connections['main'].cursor() as cursor:
+        for username in usernames:
+            cursor.execute("DELETE from User "
+                           "where username = %s", (username,))

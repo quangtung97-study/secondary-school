@@ -22,3 +22,13 @@ def set_user(request, user):
 
 def del_user(request):
     request.session.flush()
+
+
+def insert_privileges(d, privilege):
+    if privilege == 'admin':
+        d['saodo_privilege'] = True
+        d['loptruong_privilege'] = True
+    elif privilege == 'saodo':
+        d['saodo_privilege'] = True
+    elif privilege == 'loptruong':
+        d['loptruong_privilege'] = True

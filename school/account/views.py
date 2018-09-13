@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.http import QueryDict
 from school import read_models
+from school import write_models
 from school import repository
 from school import view_utils
 
@@ -41,9 +42,13 @@ def detail(request):
         'privilege': view_utils.get_user_privilege_string(request),
     }
     privilege = view_utils.get_user_privilege(request)
+    view_utils.insert_privileges(d, privilege)
+
     if privilege is None:
         return redirect('/')
     elif privilege == "admin":
+        users = repository.get_users_except_admin()
+        d['users'] = users
         return render(request, 'account/detail_admin.html', d)
     else:
         return render(request, 'account/detail_normal.html', d)
@@ -51,6 +56,10 @@ def detail(request):
 
 @csrf_protect
 def change_password(request):
+    privilege = view_utils.get_user_privilege(request)
+    if privilege == None:
+        return redirect('/')
+
     query = QueryDict(request.body)
 
     ret = repository.update_password(
@@ -62,14 +71,18 @@ def change_password(request):
     if ret is False:
         return render(request, 'account/change-password-error.html')
 
-    return redirect('/account/detail/')
+    return redirect('/account/detail/#change-password')
 
 
 @csrf_protect
-def add_account(request):
+def add_user(request):
+    privilege = view_utils.get_user_privilege(request)
+    if privilege != 'admin':
+        return redirect('/')
+
     query = QueryDict(request.body)
 
-    ret = repository.add_account(
+    ret = repository.add_user(
         username=query['username'],
         password=query['password'],
         re_enter_password=query['re-enter-password'],
@@ -79,4 +92,17 @@ def add_account(request):
     if ret is False:
         return render(request, 'account/add-account-error.html')
 
-    return redirect('/account/detail/')
+    return redirect('/account/detail/#add-user')
+
+
+#csrf_protect
+def remove_users(request):
+    privilege = view_utils.get_user_privilege(request)
+    if privilege != 'admin':
+        return redirect('/')
+
+    query = QueryDict(request.body)
+    usernames = query.getlist('user-list')
+    usernames = write_models.validate_usernames(usernames)
+    repository.remove_users(usernames)
+    return redirect('/account/detail/#remove-users')

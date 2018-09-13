@@ -5,13 +5,12 @@
 
 <div class="container">
 <div class="detail-form">
-<div class="main-div">
+<div class="main-div" id="add-user">
   <div class="panel">
     <p>Thêm tài khoản</p>
   </div>
-
-
-  <form action="/account/add-account/" method="post"> {% csrf_token %}
+  
+  <form action="/account/add-user/" method="post"> {% csrf_token %}
     <div class="form-group radio">
       <label><input type="radio" name="privilege-name" value="saodo" checked>Sao đỏ</label>
     </div>
@@ -40,21 +39,24 @@
 
 <div class="container">
 <div class="detail-form">
-<div class="main-div">
+<div class="main-div" id="remove-users">
   <div class="panel">
     <p>Xóa tài khoản</p>
   </div>
 
-  <form action="/account/remove-account/" method="post"> {% csrf_token %}
-    <div class="checkbox">
-      <label><input type="checkbox" value="taikhoan1">Option 1</label>
+  <span class="label-privilege bg-success">Sao đỏ</span>
+  <span class="label-privilege bg-info">Lớp trưởng</span>
+
+  <form action="/account/remove-users/" method="post"> {% csrf_token %}
+    {% for user in users %}
+    {% if user.privilegeName == "saodo" %}
+    <div class="checkbox bg-success">
+    {% else %}
+    <div class="checkbox bg-info">
+    {% endif %}
+      <label><input type="checkbox" name="user-list" value="{{user.username}}">{{user.username}}</label>
     </div>
-    <div class="checkbox">
-      <label><input type="checkbox" value="taikhoan2">Option 2</label>
-    </div>
-    <div class="checkbox">
-      <label><input type="checkbox" value="taikhoan3">Option 3</label>
-    </div>
+    {% endfor %}
     <button type="submit" class="btn btn-primary">Xóa</button>
   </form>
 </div></div></div>

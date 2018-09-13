@@ -5,6 +5,8 @@ from school import view_utils
 def homepage(request):
     d = {'homepage': 'active'}
     privilege = view_utils.get_user_privilege(request)
+    view_utils.insert_privileges(d, privilege)
+
     if privilege == "admin":
         return render(request, 'home/homepage_admin.html', d)
     elif privilege == "saodo":

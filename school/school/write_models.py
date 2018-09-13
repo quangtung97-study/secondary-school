@@ -67,3 +67,11 @@ def new_user_for_adding(username, password,
     if user['privilegeName'] == 'admin':
         return None
     return user
+
+
+def validate_usernames(usernames):
+    result = []
+    for username in usernames:
+        if username != 'admin':
+            result.append(username)
+    return result

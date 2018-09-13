@@ -1,0 +1,112 @@
+{% extends 'base_logged_in.html' %}
+
+{% block title %}Học tập{% endblock %}
+
+{% block navbar_right %}
+    {{ block.super }}
+{% endblock %}
+
+{% load static %}
+
+{% block external_css %} 
+{% endblock %}
+
+{% block body %}
+<div id="div-hoctap-csrf-token" style="display: none; "> {% csrf_token %}</div>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Thứ</th>
+      <th scope="col">Giờ Tốt</th>
+      <th scope="col">Giờ Khá</th>
+      <th scope="col">Giờ TB</th>
+      <th scope="col">Điểm Giỏi</th>
+      <th scope="col">Điểm Khá</th>
+      <th scope="col">Điểm TB</th>
+      <th scope="col">Điểm Yếu</th>
+      <th scope="col">Điểm Kém</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tr-hoctap-info">
+      <th scope="row" name="thu">2</th>
+      <td name="gioTot">10</td>
+      <td name="gioKha">14</td>
+      <td name="gioTB">16</td>
+      <td name="diemTot">20</td>
+      <td name="diemKha">25</td>
+      <td name="diemTB">27</td>
+      <td name="diemYeu">30</td>
+      <td name="diemKem">38</td>
+      <td><button type="button" class="button-modify btn btn-sm btn-primary btn-block">Chỉnh sửa</button></td>
+      <td><button type="button" class="button-remove btn btn-sm btn-danger btn-block">Xóa</button></td>
+    </tr>
+
+    <tr id="tr-hoctap-template" style="display: none; ">
+        <td><input type="number" name="thu"       class="form-control"/></td>
+        <td><input type="number" name="gioTot"    class="form-control"/></td>
+        <td><input type="number" name="gioKha"    class="form-control"/></td>
+        <td><input type="number" name="gioTB"     class="form-control"/></td>
+        <td><input type="number" name="diemTot"   class="form-control"/></td>
+        <td><input type="number" name="diemKha"   class="form-control"/></td>
+        <td><input type="number" name="diemTB"    class="form-control"/></td>
+        <td><input type="number" name="diemYeu"   class="form-control"/></td>
+        <td><input type="number" name="diemKem"   class="form-control"/></td>
+        <td><button type="button" class="button-save btn btn-sm btn-primary btn-block">Lưu</button></td>
+        <td><button type="button" class="button-cancel btn btn-sm btn-danger btn-block">Hủy</button></td>
+    </tr>
+
+    <tr id="tr-hoctap-info-template" style="display: none; ">
+      <th scope="row" name="thu"></th>
+      <td name="gioTot"></td>
+      <td name="gioKha"></td>
+      <td name="gioTB"></td>
+      <td name="diemTot"></td>
+      <td name="diemKha"></td>
+      <td name="diemTB"></td>
+      <td name="diemYeu"></td>
+      <td name="diemKem"></td>
+      <td><button type="button" class="button-modify btn btn-sm btn-primary btn-block">Chỉnh sửa</button></td>
+      <td><button type="button" class="btn btn-sm btn-danger btn-block">Xóa</button></td>
+    </tr>
+
+    <tr id="tr-hoctap-add-row">
+      <td><input type="number" name="thu"       class="form-control"/></td>
+      <td><input type="number" name="gioTot"    class="form-control"/></td>
+      <td><input type="number" name="gioKha"    class="form-control"/></td>
+      <td><input type="number" name="gioTB"     class="form-control"/></td>
+      <td><input type="number" name="diemTot"   class="form-control"/></td>
+      <td><input type="number" name="diemKha"   class="form-control"/></td>
+      <td><input type="number" name="diemTB"    class="form-control"/></td>
+      <td><input type="number" name="diemYeu"   class="form-control"/></td>
+      <td><input type="number" name="diemKem"   class="form-control"/></td>
+      <td colspan="2">
+        <button type="button" class="btn btn-sm btn-primary btn-block">Thêm hàng</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script src="{% static '/hoctap/manage.js' %}"></script>
+<script>
+input_csrf_token = $("#div-hoctap-csrf-token > input");
+template = $("#tr-hoctap-template");
+info_template = $("#tr-hoctap-info-template");
+
+names = [
+    'thu', 'gioTot', 'gioKha', 'gioTB',
+    'diemTot', 'diemKha', 'diemTB', 'diemYeu', 'diemKem',
+]
+
+$(".tr-hoctap-info").each(function(index) {
+    var tr = $(this);
+    set_listeners_on_text_mode(tr);
+});
+
+set_add_row_click_event($("#tr-hoctap-add-row"));
+</script>
+
+{% endblock %}

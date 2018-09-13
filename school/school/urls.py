@@ -21,5 +21,6 @@ from home import views as home_views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
+    path('hoctap/', include('hoctap.urls')),
     path('', home_views.homepage),
 ]
